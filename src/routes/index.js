@@ -1,6 +1,7 @@
-const router = require("express").Router();
+﻿const router = require("express").Router();
 
 router.use("/auth", require("./auth.routes"));
-// Later phases mount here: /scores, /charities, /subscription, /draws, /winners, /admin
+router.use("/scores", require("./score.routes"));
+// Later phases mount here: /charities, /subscription, /draws, /winners, /admin
 
 module.exports = router;
