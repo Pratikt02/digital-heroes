@@ -4,11 +4,12 @@ const assert = require("node:assert/strict");
 const { calcCharityContribution, isValidPercentage, slugify } = require("../src/services/charityRules");
 const { createCharitySchema, updateCharitySchema, listQuerySchema, selectCharitySchema } = require("../src/validators/charity.schemas");
 
-test("10% minimum: only whole numbers from 10 to 100 are valid", () => {
+test("10% minimum: only whole numbers from 10 to 50 are valid", () => {
   assert.equal(isValidPercentage(10), true);
-  assert.equal(isValidPercentage(100), true);
+  assert.equal(isValidPercentage(50), true);
   assert.equal(isValidPercentage(9), false);
-  assert.equal(isValidPercentage(101), false);
+  assert.equal(isValidPercentage(51), false);
+  assert.equal(isValidPercentage(100), false);
   assert.equal(isValidPercentage(10.5), false);
   assert.equal(isValidPercentage("15"), false);
 });
@@ -28,7 +29,7 @@ test("contribution is calculated in integer minor units, rounding half up", () =
   assert.equal(calcCharityContribution(1000, 10), 100);
   assert.equal(calcCharityContribution(1999, 10), 200); // 199.9 -> 200
   assert.equal(calcCharityContribution(999, 15), 150); // 149.85 -> 150
-  assert.equal(calcCharityContribution(10000, 100), 10000);
+  assert.equal(calcCharityContribution(10000, 50), 5000);
   assert.equal(calcCharityContribution(0, 10), 0);
   assert.equal(calcCharityContribution(5, 10), 1); // 0.5 rounds up
 });

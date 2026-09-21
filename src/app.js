@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const env = require("./config/env");
 const { connectDB } = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
+const { razorpayWebhook } = require("./controllers/webhook.controller");
 
 const app = express();
 
@@ -14,8 +15,9 @@ app.use(helmet());
 // In production the client proxies /api (same-origin), so CORS only matters for local dev.
 app.use(cors({ origin: env.CLIENT_URL, credentials: true }));
 
-// PHASE 5: register the Stripe webhook HERE, before express.json():
-//   app.post("/api/webhooks/stripe", express.raw({ type: "application/json" }), stripeWebhook);
+// The payment webhook MUST be registered before express.json(): the signature is computed
+// over the raw bytes, and express.json() would consume and re-serialise the body.
+app.post("/api/webhooks/razorpay", express.raw({ type: "application/json", limit: "1mb" }), razorpayWebhook);
 
 app.use(express.json({ limit: "100kb" }));
 app.use(cookieParser());

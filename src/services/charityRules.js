@@ -1,7 +1,8 @@
 // PURE charity rules: no database, no Express, easy to unit test.
 
 const MIN_CHARITY_PERCENT = 10; // PRD: minimum contribution is 10% of the subscription fee
-const MAX_CHARITY_PERCENT = 100;
+// Capped at 50% so the fee can always cover the 50% prize pool AND the charity share.
+const MAX_CHARITY_PERCENT = 50;
 
 function isValidPercentage(p) {
   return Number.isInteger(p) && p >= MIN_CHARITY_PERCENT && p <= MAX_CHARITY_PERCENT;
