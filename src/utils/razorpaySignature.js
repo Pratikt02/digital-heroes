@@ -21,4 +21,4 @@ function verifyWebhookSignature(rawBody, signature, secret) {
   return safeEqual(hmacHex(secret, rawBody), signature);
 }
 
-module.exports = { hmacHex, verifyCheckoutSignature, verifyWebhookSignature };
+module.exports = { hmacHex, safeEqual, verifyCheckoutSignature, verifyWebhookSignature };
