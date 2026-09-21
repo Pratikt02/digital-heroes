@@ -9,6 +9,9 @@ router.use("/subscription", require("./subscription.routes"));
 router.use("/draws", require("./draw.routes"));
 router.use("/admin/draws", require("./adminDraw.routes"));
 router.use("/cron", require("./cron.routes"));
-// Phase 7 mounts here: /winners, /admin/winners, /admin/users, /admin/reports
+router.use("/winners", require("./winner.routes"));
+router.use("/admin/winners", require("./adminWinner.routes"));
+router.use("/admin/users", require("./adminUser.routes"));
+router.use("/admin/reports", require("./adminReport.routes"));
 
 module.exports = router;

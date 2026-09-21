@@ -270,6 +270,7 @@ async function ensureMonthlyDraw(now = new Date()) {
 }
 
 module.exports = {
+  activeFilter,
   createDraw,
   updateDraw,
   deleteDraw,

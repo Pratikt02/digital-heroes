@@ -13,6 +13,11 @@ const errorHandler = (err, req, res, next) => {
   }
   if (err.name === "CastError") return res.status(400).json({ error: "Invalid id" });
   if (err.type === "entity.parse.failed") return res.status(400).json({ error: "Invalid JSON body" });
+  if (err.name === "MulterError") {
+    if (err.code === "LIMIT_FILE_SIZE") return res.status(413).json({ error: "That file is too large (maximum 5 MB)" });
+    if (err.code === "LIMIT_UNEXPECTED_FILE") return res.status(400).json({ error: 'Send the image in a form field named "proof"' });
+    return res.status(400).json({ error: "Invalid upload" });
+  }
 
   const status = err.statusCode || 500;
   if (status >= 500) console.error(err);
