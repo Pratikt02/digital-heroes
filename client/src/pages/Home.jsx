@@ -61,7 +61,7 @@ export default function Home() {
             ["Draw and verify", "Published draws create winner records, proof upload, approval and payout tracking."],
           ].map(([title, text], i) => <article key={title} className="step"><span>{i + 1}</span><h3>{title}</h3><p>{text}</p></article>)}
         </div>
-      </section>
+      </section>   
 
       <section className="band light">
         <div className="section-head row">
