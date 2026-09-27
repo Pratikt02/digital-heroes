@@ -1,4 +1,4 @@
-import { Check, CreditCard, Play, RefreshCcw, Search, Send, X } from "lucide-react";
+import { Check, CreditCard, Eye, Play, RefreshCcw, Search, Send, X } from "lucide-react";
 import { useState } from "react";
 import { api, money } from "../lib/api";
 import { useAsyncData } from "../hooks/useAsyncData";
@@ -84,6 +84,11 @@ export default function Admin() {
                 <div><b>{winner.user?.name}</b><p>{winner.draw?.month} · {winner.matchCount} matches · {money(winner.prizeAmount)}</p></div>
                 <span className="pill">{winner.verificationStatus} / {winner.paymentStatus}</span>
                 <div className="admin-actions">
+                  {winner.proofUrl && (
+                    <a href={winner.proofUrl} target="_blank" rel="noreferrer" className="secondary-button" title="View uploaded proof">
+                      <Eye size={16} /> View
+                    </a>
+                  )}
                   <button className="secondary-button" onClick={() => action(`/api/admin/winners/${winner.id}/approve`, "Winner approved")}><Check size={16} /> Approve</button>
                   <button className="secondary-button" onClick={() => action(`/api/admin/winners/${winner.id}/reject`, "Winner rejected", { reason: "Proof needs a clearer payment screenshot." })}><X size={16} /> Reject</button>
                   <button className="primary-button" onClick={() => action(`/api/admin/winners/${winner.id}/mark-paid`, "Marked paid")}><CreditCard size={16} /> Paid</button>
